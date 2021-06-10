@@ -2,7 +2,7 @@
     "name": "server",
     "version": "0.0.0",
     "scripts": {
-        "build": "./node_modules/.bin/ts-node build.ts",
+        "build": ".\\node_modules\\.bin\\ts-node build.ts",
         "lint": "eslint . --ext .ts",
         "start": "node -r module-alias/register ./dist --env=production",
         "start:dev": "nodemon",
@@ -67,6 +67,7 @@
         "build.ts"
     ],
     "dependencies": {
+        "babel": "^6.23.0",
         "command-line-args": "^5.1.1",
         "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
