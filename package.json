@@ -8,7 +8,8 @@
         "start:dev": "nodemon",
         "test": "nodemon --config ./spec/nodemon.json",
         "test:no-reloading": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./spec",
-        "deploy": "git add . && git commit -m Heroku && git push heroku main"
+        "deploy": "git add . && git commit -m Heroku && git push heroku main",
+        "heroku-postbuild": "ng build --prod"
     },
     "nodemonConfig": {
         "watch": [
