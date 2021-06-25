@@ -5,7 +5,7 @@ export interface ITrip {
     attractions: [{ attraction: Attraction; date: Date }];
     startDate: Date;
     endDate: Date;
-    src: string;
+    img: string;
 }
 
 // TODO: update entity
@@ -15,7 +15,7 @@ class Trip implements ITrip {
     public attractions: [{ attraction: Attraction; date: Date }];
     public startDate: Date;
     public endDate: Date;
-    public src: string;
+    public img: string;
 
     constructor(
         id: number,
@@ -23,14 +23,14 @@ class Trip implements ITrip {
         attractions: [{ attraction: Attraction; date: Date }],
         startDate: Date,
         endtDate: Date,
-        src: string
+        img: string
     ) {
         this.id = id;
         this.destination = destination;
         this.attractions = attractions;
         this.startDate = startDate;
         this.endDate = endtDate;
-        this.src = src;
+        this.img = img;
     }
 }
 

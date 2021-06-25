@@ -8,6 +8,7 @@ export interface TripDocument extends Document {
     ];
     startDate: [Date];
     endDate: [Date];
+    img: string;
 }
 
 const TripSchema: Schema = new Schema(
@@ -28,6 +29,7 @@ const TripSchema: Schema = new Schema(
         ],
         startDate: { type: Date, requiered: true },
         endDate: { type: Date, requiered: true },
+        img: { type: String, requiered: true },
     },
     { collection: 'trips' }
 );

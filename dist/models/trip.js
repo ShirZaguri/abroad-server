@@ -18,5 +18,6 @@ const TripSchema = new mongoose_1.Schema({
     ],
     startDate: { type: Date, requiered: true },
     endDate: { type: Date, requiered: true },
+    img: { type: String, requiered: true },
 }, { collection: 'trips' });
 exports.default = mongoose_1.model('trips', TripSchema);
