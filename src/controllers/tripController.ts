@@ -19,6 +19,18 @@ export async function getAllTrips(req: Request, res: Response) {
 }
 
 /**
+ * Get Trip by id
+ *
+ * @param req
+ * @param res
+ * @returns
+ */
+export async function getTrip(req: Request, res: Response) {
+    const trip = await tripService.getById(req.params.id);
+    return res.status(OK).json(trip);
+}
+
+/**
  * Add one trip.
  *
  * @param req

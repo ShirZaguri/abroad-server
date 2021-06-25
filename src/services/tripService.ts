@@ -9,6 +9,12 @@ export class tripService {
         return await trips.find({}).populate('attractions.attraction');
     };
 
+    static getById = async (id: string) => {
+        return await trips
+            .findOne({ _id: id })
+            .populate('attractions.attraction');
+    };
+
     static add = async (trip: Trip) => {
         return await trips.create({ ...trip }, function (err, r) {
             if (err) {
