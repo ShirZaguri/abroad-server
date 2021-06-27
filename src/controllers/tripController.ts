@@ -13,9 +13,21 @@ const { BAD_REQUEST, CREATED, OK } = StatusCodes;
  * @returns
  */
 export async function getAllTrips(req: Request, res: Response) {
-    const trips = await tripService.getAll();
+    const trips = await tripService.get();
     console.log(trips);
     return res.status(OK).json({ trips });
+}
+
+/**
+ * Get Trip by id
+ *
+ * @param req
+ * @param res
+ * @returns
+ */
+export async function getTrip(req: Request, res: Response) {
+    const trip = await tripService.get({ _id: req.params.id });
+    return res.status(OK).json(trip);
 }
 
 /**

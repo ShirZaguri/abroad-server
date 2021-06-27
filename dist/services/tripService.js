@@ -19,8 +19,9 @@ const attraction_1 = __importDefault(require("../models/attraction"));
 class tripService {
 }
 exports.tripService = tripService;
-tripService.getAll = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield trip_1.default.find({}).populate('attractions.attraction');
+// TODO: chnage query type
+tripService.get = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield trip_1.default.find(query).populate('attractions.attraction');
 });
 tripService.add = (trip) => __awaiter(void 0, void 0, void 0, function* () {
     return yield trip_1.default.create(Object.assign({}, trip), function (err, r) {
