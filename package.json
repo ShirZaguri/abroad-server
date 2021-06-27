@@ -2,13 +2,13 @@
     "name": "server",
     "version": "0.0.0",
     "scripts": {
-        "build": "./node_modules/.bin/ts-node build.ts",
+        "build": ".\\node_modules\\.bin\\ts-node build.ts",
         "lint": "eslint . --ext .ts",
         "start": "node -r module-alias/register ./dist --env=production",
         "start:dev": "nodemon",
         "test": "nodemon --config ./spec/nodemon.json",
         "test:no-reloading": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./spec",
-        "deploy": "git add . && git commit -m Heroku && git push heroku master"
+        "deploy": "git add . && git commit -m Heroku && git push heroku main"
     },
     "nodemonConfig": {
         "watch": [
@@ -24,7 +24,7 @@
         "@daos": "dist/daos",
         "@entities": "dist/entities",
         "@shared": "dist/shared",
-        "@server": "dist/Server"
+        "@server": "dist/server"
     },
     "eslintConfig": {
         "parser": "@typescript-eslint/parser",
@@ -67,6 +67,7 @@
         "build.ts"
     ],
     "dependencies": {
+        "babel": "^6.23.0",
         "command-line-args": "^5.1.1",
         "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
