@@ -4,11 +4,13 @@ import {
     addTrip,
     deleteTrip,
     getAllTrips,
+    getTrip,
     updateTrip,
 } from '../controllers/tripController';
 
 const tripRouter = Router();
 tripRouter.get('/', getAllTrips);
+tripRouter.get('/:id', getTrip);
 tripRouter.post('/add', addTrip);
 tripRouter.post('/addAttraction', addAttraction);
 tripRouter.put('/update', updateTrip);

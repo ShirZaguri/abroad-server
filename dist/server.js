@@ -58,8 +58,5 @@ const viewsDir = path_1.default.join(__dirname, 'views');
 app.set('views', viewsDir);
 const staticDir = path_1.default.join(__dirname, 'public');
 app.use(express_1.default.static(staticDir));
-app.get('*', (req, res) => {
-    res.sendFile('index.html', { root: viewsDir });
-});
 // Export express instance
 exports.default = app;

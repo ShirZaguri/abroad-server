@@ -5,8 +5,9 @@ import trips from '../models/trip';
 import attractions from '../models/attraction';
 
 export class tripService {
-    static getAll = async () => {
-        return await trips.find({}).populate('attractions.attraction');
+    // TODO: chnage query type
+    static get = async (query?: any) => {
+        return await trips.find(query).populate('attractions.attraction');
     };
 
     static add = async (trip: Trip) => {
