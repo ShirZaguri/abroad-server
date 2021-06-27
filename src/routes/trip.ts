@@ -10,7 +10,7 @@ import {
 
 const tripRouter = Router();
 tripRouter.get('/', getAllTrips);
-tripRouter.get('/id/:id', getTrip);
+tripRouter.get('/:id', getTrip);
 tripRouter.post('/add', addTrip);
 tripRouter.post('/addAttraction', addAttraction);
 tripRouter.put('/update', updateTrip);
