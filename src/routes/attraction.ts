@@ -1,7 +1,11 @@
 import { Router } from 'express';
-import { getAllAttractions } from '../controllers/attractionController';
+import {
+    getAllAttractions,
+    updateOrCreateAttraction,
+} from '../controllers/attractionController';
 
 const attractionRouter = Router();
 attractionRouter.get('/', getAllAttractions);
+attractionRouter.post('/', updateOrCreateAttraction);
 
 export default attractionRouter;

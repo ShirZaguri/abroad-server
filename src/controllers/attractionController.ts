@@ -17,3 +17,11 @@ export async function getAllAttractions(req: Request, res: Response) {
     console.log(attractions);
     return res.status(OK).json({ attractions });
 }
+
+export async function updateOrCreateAttraction(req: Request, res: Response) {
+    const attraction = await attractionService.updateOrCreate(
+        req.body.attraction
+    );
+
+    return res.status(OK).json({ attraction });
+}

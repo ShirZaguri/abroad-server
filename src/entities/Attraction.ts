@@ -1,20 +1,20 @@
 export interface IAttraction {
     id: number;
     name: string;
-    img: string;
+    price: number;
     description: string;
 }
 
 class Attraction implements IAttraction {
     public id: number;
     public name: string;
-    public img: string;
+    public price: number;
     public description: string;
 
     constructor(attraction: IAttraction) {
         this.name = attraction.name;
         this.id = attraction.id;
-        this.img = attraction.img;
+        this.price = attraction.price;
         this.description = attraction.description;
     }
 }

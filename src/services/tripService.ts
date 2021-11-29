@@ -22,6 +22,7 @@ export class tripService {
         attraction: Attraction,
         details: { date: Date; price: Number }
     ) => {
+        // TODO: update add attraction according to new attractin model
         console.log(JSON.stringify(attraction));
         return await attractions.findOneAndUpdate(
             { name: attraction.name },
