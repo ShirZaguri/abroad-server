@@ -1,6 +1,7 @@
 import { paramMissingError } from '@shared/constants';
 import { Request, Response } from 'express';
 import StatusCodes from 'http-status-codes';
+import { tripService } from 'src/services/tripService';
 import { attractionService } from '../services/attractionService';
 
 const { BAD_REQUEST, CREATED, OK } = StatusCodes;
@@ -19,9 +20,12 @@ export async function getAllAttractions(req: Request, res: Response) {
 }
 
 export async function updateOrCreateAttraction(req: Request, res: Response) {
-    const attraction = await attractionService.updateOrCreate(
-        req.body.attraction
-    );
+    const { _id, attraction, details } = req.body;
+    await attractionService.updateOrCreate({
+        attraction: attraction,
+        details: details,
+        _id: _id,
+    });
 
     return res.status(OK).json({ attraction });
 }
