@@ -1,5 +1,7 @@
 import attraction from '../models/attraction';
 import trips from '../models/trip';
+import Attraction from '@entities/Attraction';
+import { Types } from 'mongoose';
 
 export class attractionService {
     static getAll = async () => {
@@ -7,35 +9,90 @@ export class attractionService {
     };
 
     // TODO: change item type after recreating relevan attraction types
-    static updateOrCreate = async (item: any) => {
-        const { attraction: baseAttraction, details, _id } = item;
-
-        return await attraction.updateOne(
-            { _id: baseAttraction._id },
+    static updateOrCreate = async (
+        _id: string,
+        baseAttraction: any,
+        details: { date: Date; price: Number }
+    ) => {
+        const attractionToAddOrUpdate = {
+            ...baseAttraction,
+            _id: baseAttraction._id || new Types.ObjectId(),
+        };
+        const attractionId = baseAttraction._id || new Types.ObjectId();
+        return await attraction.findOneAndUpdate(
+            { _id: attractionToAddOrUpdate._id },
             baseAttraction,
             {
+                new: true,
                 upsert: true,
                 setDefaultsOnInsert: true,
+                rawResult: true,
             },
-            async () => {
+            // { _id: attractionToAddOrUpdate._id },
+            // { $setOnInsert: attractionToAddOrUpdate },
+            // { upsert: true, new: true, rawResult: true },
+            async (err, addedAttraction) => {
+                console.log(
+                    'addedattraction: ' +
+                        JSON.stringify(addedAttraction, null, 2)
+                );
+                console.log(addedAttraction.lastErrorObject.updatedExisting);
                 return await trips.updateOne(
                     {
-                        _id: _id,
+                        _id,
                         attractions: {
                             $elemMatch: {
-                                attraction: baseAttraction._id,
+                                attraction: (addedAttraction.value as any)?._id,
                             },
                         },
                     },
-                    {
-                        $set: {
-                            'attractions.$.details': {
-                                date: details.date,
-                                price: details.price,
-                            },
-                        },
-                    }
+                    { $set: { 'attractions.$.details': details } }
                 );
+
+                // return addedAttraction.lastErrorObject.updatedExisting
+                //     ? await trips.updateOne(
+                //           {
+                //               _id: _id,
+                //               //   attractions: {
+                //               //       $elemMatch: {
+                //               //           attraction: (addedAttraction.value as any)
+                //               //               ?._id,
+                //               //       },
+                //               //   },
+                //               'attractions.attraction': (
+                //                   addedAttraction.value as any
+                //               )?._id,
+                //           },
+                //           {
+                //               $set: {
+                //                   //   'attractions.$.details': {
+                //                   //       date: details.date,
+                //                   //       price: details.price,
+                //                   //   },
+                //                   'attractions.$.details': details,
+                //               },
+                //           },
+                //           {},
+                //           async (err, result) => {
+                //               console.log(err);
+                //               console.log(result);
+                //           }
+                //       )
+                //     : await trips.updateOne(
+                //           { _id: _id },
+                //           {
+                //               $push: {
+                //                   attractions: {
+                //                       attraction: (addedAttraction.value as any)
+                //                           ?._id,
+                //                       details: {
+                //                           date: details.date,
+                //                           price: details.price,
+                //                       },
+                //                   },
+                //               },
+                //           }
+                //       );
             }
         );
     };
