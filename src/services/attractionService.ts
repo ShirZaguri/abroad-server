@@ -10,7 +10,7 @@ export class attractionService {
 
     // TODO: change item type after recreating relevan attraction types
     static updateOrCreate = async (
-        _id: string,
+        tripId: string,
         baseAttraction: any,
         details: { date: Date; price: Number }
     ) => {
@@ -28,43 +28,14 @@ export class attractionService {
                 setDefaultsOnInsert: true,
                 rawResult: true,
             },
-            // { _id: attractionToAddOrUpdate._id },
-            // { $setOnInsert: attractionToAddOrUpdate },
-            // { upsert: true, new: true, rawResult: true },
             async (err, addedAttraction) => {
-                console.log(
-                    'addedattraction: ' +
-                        JSON.stringify(addedAttraction, null, 2)
-                );
-                console.log(addedAttraction.lastErrorObject.updatedExisting);
-                // console.log('Trip id:' + _id);
-                // console.log('Att id:' + (addedAttraction.value as any)?._id);
-                // return await trips.findOneAndUpdate(
-                //     {
-                //         _id,
-                //         'attractions.attraction': (addedAttraction.value as any)
-                //             ?._id,
-                //     },
-                //     {
-                //         $set: {
-                //             'attractions.$.details': details,
-                //         },
-                //     },
-                //     null,
-                //     async (err, result) => {
-                //         console.log(err);
-                //         console.log(result);
-                //     }
-                // );
-
                 return addedAttraction.lastErrorObject.updatedExisting
                     ? await trips.updateOne(
                           {
-                              _id,
+                              _id: tripId,
                               attractions: {
                                   $elemMatch: {
-                                      attraction: (addedAttraction.value as any)
-                                          ?._id,
+                                      attraction: addedAttraction.value?._id,
                                   },
                               },
                           },
@@ -75,20 +46,14 @@ export class attractionService {
                                       price: details.price,
                                   },
                               },
-                          },
-                          {},
-                          async (err, result) => {
-                              console.log(err);
-                              console.log(result);
                           }
                       )
                     : await trips.updateOne(
-                          { _id },
+                          { _id: tripId },
                           {
                               $push: {
                                   attractions: {
-                                      attraction: (addedAttraction.value as any)
-                                          ?._id,
+                                      attraction: addedAttraction.value?._id,
                                       details: {
                                           date: details.date,
                                           price: details.price,

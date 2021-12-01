@@ -8,6 +8,7 @@ declare module 'express' {
             trip: any;
             attraction: any;
             details: any;
+            tripId: string;
         };
     }
 }

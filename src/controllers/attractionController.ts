@@ -19,15 +19,8 @@ export async function getAllAttractions(req: Request, res: Response) {
 }
 
 export async function updateOrCreateAttraction(req: Request, res: Response) {
-    const { _id, attraction, details } = req.body;
-    console.log(
-        _id +
-            ' ????? ' +
-            JSON.stringify(attraction) +
-            ' ?????? ' +
-            JSON.stringify(details)
-    );
-    await attractionService.updateOrCreate(_id, attraction, details);
+    const { tripId, attraction, details } = req.body;
+    await attractionService.updateOrCreate(tripId, attraction, details);
 
     return res.status(OK).json({ attraction });
 }
